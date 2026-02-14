@@ -5,6 +5,7 @@ import mapper.StudentMapper;
 import model.dao.StudentDao;
 import model.dto.StudentRequestDto;
 import model.dto.StudentResponseDto;
+import model.dto.StudentUpdateDto;
 import model.entities.Student;
 
 import java.time.LocalDate;
@@ -23,32 +24,14 @@ public class StudentServiceImpl  implements StudentService{
     @Override
     public StudentResponseDto createStudent(StudentRequestDto requestDto) {
 
-        if (requestDto.dateOfBirth().isAfter(LocalDate.now().minusYears(4))){
+        if (requestDto.dateOfBirth().isAfter(LocalDate.now().minusYears(4))) {
             throw new StudentException("Student hasn't born yet");
         }
-
         Student student = mapper.fromStudentRequestDto(requestDto);
-        Student saveStudent = dao.save(student);
 
-        return mapper.toStudentResponse(saveStudent);
+        Student savedStudent = dao.save(student);
+        return mapper.toStudentResponse(savedStudent);
     }
-
-    @Override
-    public StudentResponseDto findById(int id) {
-        Student student = dao.findById(id);
-        if (student == null) return null;
-        return mapper.toStudentResponse(student);
-
-    }
-
-    @Override
-    public StudentResponseDto update(int id, StudentRequestDto dto) {
-        Student updatedData = mapper.toEntity(dto);
-        Student result = dao.update(id, updatedData);
-        if (result == null) return null;
-        return mapper.toResponseDto(result);
-    }
-
 
     @Override
     public List<StudentResponseDto> getAllStudents(int offset, int limit) {
@@ -59,7 +42,12 @@ public class StudentServiceImpl  implements StudentService{
 
     @Override
     public boolean deleteById(Long id) {
-
-        return dao.deleteById(id);
+        return dao.removeById(id);
     }
+
+    @Override
+    public StudentResponseDto updateById(Long id, StudentUpdateDto updateDto) {
+        return null;
+    }
+
 }

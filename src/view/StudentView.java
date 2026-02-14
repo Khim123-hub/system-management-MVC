@@ -5,20 +5,20 @@ import model.dto.StudentResponseDto;
 import org.nocrala.tools.texttablefmt.BorderStyle;
 import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.Table;
-import org.w3c.dom.ls.LSOutput;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
 public class StudentView {
+
     private final static Scanner scanner = new Scanner(System.in);
 
     public StudentRequestDto displayStudentCreateDto() {
         System.out.print("[+] Enter Full Name: ");
-        String fullName = scanner.nextLine();
+        String fullname = scanner.nextLine();
 
-        System.out.print("[+] Enter Gender: ");
+        System.out.print("[+] Enter gender: ");
         String gender = scanner.nextLine();
 
         System.out.print("[+] Enter Date of Birth(Format yyyy-MM-dd): ");
@@ -27,14 +27,11 @@ public class StudentView {
         int year = Integer.parseInt(parts[0]);
         int month = Integer.parseInt(parts[1]);
         int day = Integer.parseInt(parts[2]);
-        LocalDate dateOfBirth = LocalDate.of(year, month, day);
+        LocalDate dateOfBirth = LocalDate.of(year,month, day);
 
-        return new StudentRequestDto(
-                fullName, gender, dateOfBirth
-        );
+        return new StudentRequestDto(fullname, gender, dateOfBirth);
 
     }
-
 
     public void displaySingleStudent(StudentResponseDto responseDto) {
         Table table = new Table(
@@ -54,11 +51,9 @@ public class StudentView {
         System.out.println(table.render());
 
 
-
-
     }
-    public void displayStudentList(List<StudentResponseDto> students){
 
+    public void displayStudentList(List<StudentResponseDto> students) {
         Table table = new Table(
                 4, BorderStyle.UNICODE_BOX_DOUBLE_BORDER
         );
@@ -75,7 +70,6 @@ public class StudentView {
 
             System.out.println(table.render());
         });
-
     }
 
     public Long showIdInput() {
@@ -84,17 +78,14 @@ public class StudentView {
     }
 
     public int showMenuAndGetOption() {
-        System.out.println("""
+        System.out.print("""
                 1. Create
                 2. Show All Students
-                3. Find by id
-                4. Search by name
-                5. update student
-                6. Delete student
+                3. Delete
                 0. Exit
                 """);
-        System.out.println("Choose an option:");
 
-        return Integer.parseInt((scanner.nextLine()));
+        System.out.print("Choose an option: ");
+        return Integer.parseInt(scanner.nextLine());
     }
 }

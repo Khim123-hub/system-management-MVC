@@ -24,6 +24,20 @@ public class StudentDaoImpl implements StudentDao {
         return studentDb.getStudentList();
     }
 
+    @Override
+    public Student getById(Long id) {
+        return null;
+    }
+
+    @Override
+    public boolean removeById(Long id) {
+        return false;
+    }
+
+    @Override
+    public Student update(Long id, Student student) {
+        return null;
+    }
 
 
 }

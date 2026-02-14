@@ -4,6 +4,7 @@ import db.StudentDb;
 import model.entities.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public class StudentDaoImpl implements StudentDao {
 
@@ -26,17 +27,39 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Student getById(Long id) {
-        return null;
+        Optional<Student> student = studentDb.getStudentList()
+                .stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst();
+
+        return student.orElse(null);
     }
 
     @Override
     public boolean removeById(Long id) {
-        return false;
+        return studentDb.getStudentList()
+                .removeIf(student -> student.getId().equals(id)
+                );
+
     }
 
     @Override
     public Student update(Long id, Student student) {
-        return null;
+        Optional<Student> existingStudentOpt = studentDb.getStudentList()
+                .stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst();
+
+        if (existingStudentOpt.isEmpty()) {
+            return null;
+        }
+
+        Student existingStudent = existingStudentOpt.get();
+        existingStudent.setFullName(student.getFullName());
+        existingStudent.setGender(student.getGender());
+        existingStudent.setDateOfBirth(student.getDateOfBirth());
+
+        return existingStudent;
     }
 
 

@@ -1,4 +1,10 @@
 package model.dto;
 
-public class StudentUpdateDto {
+import java.time.LocalDate;
+
+public record StudentUpdateDto (
+    String fullName,
+    String gender,
+    LocalDate dateOfBirth
+        )  {
 }

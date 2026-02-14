@@ -3,6 +3,7 @@ package mapper;
 
 import model.dto.StudentRequestDto;
 import model.dto.StudentResponseDto;
+import model.dto.StudentUpdateDto;
 import model.entities.Student;
 
 public class StudentMapper {
@@ -25,11 +26,14 @@ public class StudentMapper {
                 .build();
     }
 
-    public Student toEntity(StudentRequestDto dto) {
-        Student student = new Student();
-        student.setFullName(dto.getFullName());
-        student.setId(dto.getAge());
-        student.setMajor(dto.getMajor());
-        return student;
+
+    public Student fromStudentUpdateDto(StudentUpdateDto updateDto) {
+        return new Student(
+                updateDto.fullName(),
+                Student.Gender.valueOf(updateDto.gender().toUpperCase()),
+                updateDto.dateOfBirth()
+        );
     }
+
+
 }

@@ -17,9 +17,6 @@ public class StudentController {
     }
 
     public void create() {
-
-
-
 //        StudentResponseDto response = null;
         try {
             StudentRequestDto request = view.displayStudentCreateDto();
@@ -32,19 +29,24 @@ public class StudentController {
 //        assert response != null;
 
     }
-    public void run() {
-        while (true) {
-            int option = view.showMenuAndGetOption();
+    public void showAll() {
+        view.displayStudentList(service.getAllStudents(3, 2));
+    }
 
-            switch (option) {
-                case 1 -> create();
-                case 2 -> {}
-                case 0 -> {
-                    System.out.println("Exiting....");
-                    System.exit(0);
-                }
-            }
+    public void delete() {
+        Long id = view.showIdInput();
+        if (service.deleteById(id)) {
+            System.out.println("Removed successfully");
+        } else {
+            System.out.println("Failed to remove");
         }
+    }
+
+    public void run() {
+
+    }
+
+    private void update() {
     }
 
 

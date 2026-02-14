@@ -11,9 +11,8 @@ public interface StudentService {
 
     List<StudentResponseDto> getAllStudents(int offset, int limit);
 
+    StudentResponseDto updateById(Long id, StudentUpdateDto student);
 
     boolean deleteById(Long id);
-
-    StudentResponseDto updateById(Long id, StudentUpdateDto student);
 
 }
